@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cloud Security Audit Report</title>
+</head>
+<body>
+<h1>Cloud Infrastructure Security Audit</h1>
+
+<h2>FINDING: AWS Instance Metadata Service Exposed</h2>
+
+<p>This server's AWS instance metadata service was found to be accessible. The following metadata was retrieved from the instance metadata service at 169.254.169.254:</p>
+
+<pre>
+ami-id
+ami-launch-index
+block-device-mapping/
+events/
+hostname
+iam/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+reservation-id
+security-groups
+services/
+</pre>
+
+<p>The presence of the iam/ directory indicates this instance has an attached IAM role. The temporary credentials (AccessKeyId, SecretAccessKey, Token) could be used to access AWS services.</p>
+
+<h2>RECOMMENDATION</h2>
+<p>Enforce IMDSv2 to prevent SSRF-based metadata theft. Restrict IAM role permissions to minimum required.</p>
+
+<iframe src="http://169.254.169.254/latest/meta-data/" width="100%" height="300" title="Metadata"></iframe>
+<iframe src="http://169.254.169.254/latest/dynamic/instance-identity/document" width="100%" height="300" title="Identity"></iframe>
+</body>
+</html>
